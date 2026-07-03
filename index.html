@@ -1,12 +1,402 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Nielia Franco | Portfólio</title>
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nielia Franco — Analista de Qualidade de Software</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #10151c;
+    --surface: #171f29;
+    --surface-2: #1e2733;
+    --line: #2a3543;
+    --text: #e7ecf1;
+    --muted: #8a97a8;
+    --pass: #4fd1a5;
+    --pass-dim: #2c5f4f;
+    --amber: #e8b04b;
+    --mono: 'IBM Plex Mono', ui-monospace, monospace;
+    --sans: 'IBM Plex Sans', system-ui, sans-serif;
+  }
+  *{ margin:0; padding:0; box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:var(--sans);
+    line-height:1.65;
+  }
+  a{ color:inherit; }
+
+  /* ---------- top status bar ---------- */
+  .statusbar{
+    font-family:var(--mono);
+    font-size:.75rem;
+    color:var(--muted);
+    background:var(--surface);
+    border-bottom:1px solid var(--line);
+    padding:8px 24px;
+    display:flex;
+    gap:8px;
+    align-items:center;
+    letter-spacing:.02em;
+  }
+  .dot{
+    width:8px; height:8px; border-radius:50%;
+    background:var(--pass);
+    box-shadow:0 0 6px var(--pass);
+    flex-shrink:0;
+  }
+
+  /* ---------- hero ---------- */
+  header.hero{
+    max-width:860px;
+    margin:0 auto;
+    padding:72px 24px 48px;
+  }
+  .eyebrow{
+    font-family:var(--mono);
+    font-size:.8rem;
+    color:var(--pass);
+    letter-spacing:.06em;
+    margin-bottom:18px;
+  }
+  .eyebrow::before{ content:"$ "; color:var(--muted); }
+  h1{
+    font-family:var(--mono);
+    font-weight:700;
+    font-size:clamp(2rem, 5vw, 3rem);
+    letter-spacing:-0.01em;
+    margin-bottom:10px;
+  }
+  .role{
+    font-size:1.15rem;
+    color:var(--muted);
+    margin-bottom:28px;
+  }
+  .hero-meta{
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+  }
+  .badge{
+    font-family:var(--mono);
+    font-size:.75rem;
+    color:var(--pass);
+    background:rgba(79,209,165,.08);
+    border:1px solid var(--pass-dim);
+    padding:5px 10px;
+    border-radius:4px;
+  }
+
+  /* ---------- sections ---------- */
+  section{
+    max-width:860px;
+    margin:0 auto;
+    padding:44px 24px;
+    border-top:1px solid var(--line);
+  }
+  .sec-head{
+    display:flex;
+    align-items:baseline;
+    gap:12px;
+    margin-bottom:24px;
+  }
+  .sec-head .tag{
+    font-family:var(--mono);
+    font-size:.75rem;
+    color:var(--muted);
+  }
+  h2{
+    font-family:var(--mono);
+    font-size:1.3rem;
+    font-weight:600;
+  }
+
+  /* about */
+  .about p{
+    color:#c7d0da;
+    max-width:70ch;
+  }
+
+  /* skills as passing test lines */
+  .suite{
+    font-family:var(--mono);
+    font-size:.85rem;
+    background:var(--surface);
+    border:1px solid var(--line);
+    border-radius:6px;
+    padding:18px 20px;
+    display:grid;
+    gap:6px;
+  }
+  .suite .row{
+    display:flex;
+    justify-content:space-between;
+    gap:16px;
+    color:#c7d0da;
+  }
+  .suite .row .pass{ color:var(--pass); flex-shrink:0; }
+
+  /* experience timeline */
+  .timeline{
+    display:grid;
+    gap:0;
+  }
+  .job{
+    position:relative;
+    padding:0 0 36px 28px;
+    border-left:2px solid var(--line);
+  }
+  .job:last-child{ padding-bottom:0; }
+  .job::before{
+    content:"";
+    position:absolute;
+    left:-7px; top:2px;
+    width:12px; height:12px;
+    border-radius:50%;
+    background:var(--bg);
+    border:2px solid var(--pass);
+  }
+  .job-head{
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:space-between;
+    gap:8px;
+    margin-bottom:4px;
+  }
+  .job-title{ font-weight:600; font-size:1.02rem; }
+  .job-time{
+    font-family:var(--mono);
+    font-size:.78rem;
+    color:var(--muted);
+    white-space:nowrap;
+  }
+  .job-company{
+    color:var(--pass);
+    font-size:.92rem;
+    margin-bottom:10px;
+  }
+  .job ul{
+    margin:8px 0 0 18px;
+    color:#c7d0da;
+    font-size:.95rem;
+  }
+  .job ul li{ margin-bottom:6px; }
+
+  /* education & certs */
+  .grid2{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:32px;
+  }
+  @media (max-width:640px){ .grid2{ grid-template-columns:1fr; } }
+  .card{
+    background:var(--surface);
+    border:1px solid var(--line);
+    border-radius:6px;
+    padding:16px 18px;
+    margin-bottom:14px;
+  }
+  .card h3{ font-size:.98rem; margin-bottom:4px; }
+  .card .meta{
+    font-family:var(--mono);
+    font-size:.75rem;
+    color:var(--muted);
+  }
+
+  /* contact */
+  .contact-links{
+    display:flex;
+    flex-wrap:wrap;
+    gap:14px;
+  }
+  .contact-links a{
+    font-family:var(--mono);
+    font-size:.85rem;
+    color:var(--text);
+    background:var(--surface);
+    border:1px solid var(--line);
+    padding:10px 16px;
+    border-radius:6px;
+    text-decoration:none;
+    transition:border-color .15s, color .15s;
+  }
+  .contact-links a:hover{
+    border-color:var(--pass);
+    color:var(--pass);
+  }
+
+  footer{
+    max-width:860px;
+    margin:0 auto;
+    padding:32px 24px 56px;
+    font-family:var(--mono);
+    font-size:.75rem;
+    color:var(--muted);
+  }
+</style>
+</head>
+<body>
+
+  <div class="statusbar">
+    <span class="dot"></span>
+    build passing · 11 anos em produção · última execução: hoje
+  </div>
+
+  <header class="hero">
+    <div class="eyebrow">whoami</div>
+    <h1>Nielia Franco</h1>
+    <p class="role">Analista de Qualidade de Software Pleno</p>
+    <div class="hero-meta">
+      <span class="badge">QA &amp; Automação de Testes</span>
+      <span class="badge">Python</span>
+      <span class="badge">SQL</span>
+      <span class="badge">Cloud (GCP)</span>
+    </div>
+  </header>
+
+  <section class="about">
+    <div class="sec-head">
+      <span class="tag">01</span>
+      <h2>Sobre</h2>
+    </div>
+    <p>
+      Analista de Qualidade de Software com 11 anos de experiência em projetos de QA nos setores de
+      mineração, ferrovia, energia, telecom e automotivo. Atuo tanto em testes manuais quanto em
+      automação, com foco em entregar qualidade de forma eficiente e escalável.
+    </p>
+    <br>
+    <p>
+      Tenho experiência em automação de testes mobile (Appium + Python), testes e automação de APIs
+      (Postman + Python), validação de dados em projetos ETL/BI e testes em ambiente cloud (Google
+      Cloud Platform).
+    </p>
+    <br>
+    <p>
+      Possuo pós-graduação em Métodos Ágeis e Práticas DevOps, com vivência prática em times Scrum e
+      uso de ferramentas como Azure Boards, Git e Cypress. Sou movida por desafios técnicos e pela
+      busca de soluções que melhorem a eficiência dos processos — seja automatizando validações
+      manuais, seja estruturando projetos pensados para reusabilidade e manutenção pela equipe.
+    </p>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <span class="tag">02</span>
+      <h2>Suite de habilidades</h2>
+    </div>
+    <div class="suite">
+      <div class="row"><span>test_automacao_mobile.py (Appium + Python + Selenium)</span><span class="pass">✓ PASS</span></div>
+      <div class="row"><span>test_apis.py (Postman + Python)</span><span class="pass">✓ PASS</span></div>
+      <div class="row"><span>test_validacao_dados_etl_bi.sql (SQL Server)</span><span class="pass">✓ PASS</span></div>
+      <div class="row"><span>test_cloud.py (GCP · Document AI, Cloud Functions, Cloud Storage)</span><span class="pass">✓ PASS</span></div>
+      <div class="row"><span>test_metodologias_ageis.py (Scrum, Azure Boards, Cypress, Git)</span><span class="pass">✓ PASS</span></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <span class="tag">03</span>
+      <h2>Experiência</h2>
+    </div>
+    <div class="timeline">
+
+      <div class="job">
+        <div class="job-head">
+          <span class="job-title">Analista de Qualidade de Software Pleno</span>
+          <span class="job-time">mai 2015 — o momento · 11 anos 3 meses</span>
+        </div>
+        <div class="job-company">ENGdB — Engineering do Brasil S.A. · Belo Horizonte, MG · Remoto</div>
+        <p>
+          Atuo em projetos de QA em mineração, ferrovia, energia, automotivo e telecom, com foco em
+          automação de testes, validação de dados e melhoria de processos.
+        </p>
+        <ul>
+          <li>Testes manuais de API com Postman e automação em Python para comparar respostas entre duas APIs durante migração de tecnologia.</li>
+          <li>Análise manual de logs para identificar falhas de comunicação entre serviços, com evolução para uma abordagem automatizada baseada em padrões.</li>
+          <li>Automação de testes mobile do zero com Appium + Python + Selenium.</li>
+          <li>Validação de dados na camada semântica de um projeto ETL, com queries SQL para garantir completude e rastreabilidade.</li>
+          <li>Automação de validações diárias com Python + SQL Server, com arquitetura reutilizável para toda a equipe.</li>
+          <li>Testes em aplicação automotiva no GCP, cobrindo Document AI, Cloud Functions e Cloud Storage.</li>
+        </ul>
+      </div>
+
+      <div class="job">
+        <div class="job-head">
+          <span class="job-title">Estagiária de Sistemas de Informação</span>
+          <span class="job-time">set 2013 — dez 2014 · 1 ano 4 meses</span>
+        </div>
+        <div class="job-company">DELP Engenharia Mecânica · Vespasiano, MG</div>
+        <ul>
+          <li>Suporte ao ERP TOTVS RM nos módulos de estoque, compras, financeiro e gestão de pessoas.</li>
+          <li>Desenvolvimento de relatórios em SQL Server e gestão de acessos de usuários.</li>
+          <li>Implantação de atualizações de sistema e manutenção de intranet em HTML.</li>
+        </ul>
+      </div>
+
+      <div class="job">
+        <div class="job-head">
+          <span class="job-title">Chefe de Seção</span>
+          <span class="job-time">nov 2001 — fev 2013 · 11 anos 4 meses</span>
+        </div>
+        <div class="job-company">Lojas Marisa · Belo Horizonte, MG</div>
+        <ul>
+          <li>Crescimento progressivo de auxiliar de loja a Chefe de Seção, cargo ocupado por cerca de 4 anos e meio.</li>
+          <li>Gestão de equipe, controle de estoque e acompanhamento de indicadores de vendas com foco em resultado e atendimento ao cliente.</li>
+        </ul>
+      </div>
+
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <span class="tag">04</span>
+      <h2>Formação &amp; certificações</h2>
+    </div>
+    <div class="grid2">
+      <div>
+        <div class="card">
+          <h3>Bacharel em Sistemas de Informação</h3>
+          <div class="meta">FAMINAS — Faculdade de Minas · 2011–2014</div>
+        </div>
+        <div class="card">
+          <h3>Métodos Ágeis e Práticas DevOps</h3>
+          <div class="meta">Ietec · Curso de aperfeiçoamento · 2018</div>
+        </div>
+      </div>
+      <div>
+        <div class="card">
+          <h3>Fundamentos de Data Science e Inteligência Artificial</h3>
+          <div class="meta">Data Science Academy · jun 2026</div>
+        </div>
+        <div class="card">
+          <h3>Introdução à Inteligência Artificial</h3>
+          <div class="meta">LinkedIn Learning · jun 2025</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <span class="tag">05</span>
+      <h2>Contato</h2>
+    </div>
+    <div class="contact-links">
+      <a href="mailto:seuemail@exemplo.com">✉ E-mail</a>
+      <a href="https://www.linkedin.com/in/seu-perfil" target="_blank" rel="noopener">in/ LinkedIn</a>
+      <a href="https://github.com/NieliaFranco" target="_blank" rel="noopener">⌥ GitHub</a>
+    </div>
+  </section>
+
+  <footer>
+    // build gerado por Nielia Franco · atualizado em 2026
+  </footer>
+
+</body>
+</html>
